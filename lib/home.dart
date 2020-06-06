@@ -1,5 +1,6 @@
   
 import 'package:flutter/material.dart';
+import 'LaunchRequestAPI.dart';
 
 class HomePage extends StatefulWidget {
   HomePage({Key key, this.title}) : super(key: key);
@@ -9,6 +10,13 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+  Future<List> futureLaunch;
+  @override
+  void initState() {
+    super.initState();
+    futureLaunch = fetchLaunch();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -42,7 +50,7 @@ class _HomePageState extends State<HomePage> {
                       textAlign: TextAlign.center,
                       style: TextStyle(
                           color: Colors.white,
-                          letterSpacing: 0.15,
+                          letterSpacing: 0.10,
                           fontWeight: FontWeight.w300,
                           height: 1,
                           fontSize: 48)),
@@ -50,7 +58,7 @@ class _HomePageState extends State<HomePage> {
               ),
               Padding(
                 padding: EdgeInsets.fromLTRB(0, 0, 0, 0),
-                child: Text('A calmer personal trainer.',
+                child: Text('A calmer personaltrainer.',
                     textAlign: TextAlign.center,
                     style: TextStyle(
                         color: Colors.white,
@@ -58,6 +66,18 @@ class _HomePageState extends State<HomePage> {
                         fontWeight: FontWeight.w300,
                         height: 1,
                         fontSize: 30)),
+              ),
+              FutureBuilder<List>(
+                future: futureLaunch,
+                builder: (context, snapshot) {
+                  if (snapshot.hasData) {
+                    return Text(snapshot.data[4]['name']);
+                  } else if (snapshot.hasError) {
+                    return Text("${snapshot.error}");
+                  }
+                  // By default, show a loading spinner.
+                  return CircularProgressIndicator();
+                },
               ),
               Padding(
                 padding: EdgeInsets.fromLTRB(0, 20, 0, 40),
