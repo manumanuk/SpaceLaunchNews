@@ -1,5 +1,6 @@
 import 'dart:ui';
 
+import 'package:SpaceLaunchNews/rocketlist.dart';
 import 'package:flutter/material.dart';
 import 'LaunchRequestAPI.dart';
 
@@ -72,7 +73,7 @@ class _HomePageState extends State<HomePageWidget> {
                         fontSize: media.width/100*7
                       )
                       ),
-                    onPressed: ()=>print("pressed"),),
+                    onPressed: ()=>Navigator.of(context).push(_createRoute())),
                   ),
               ),
             ]),
@@ -81,4 +82,23 @@ class _HomePageState extends State<HomePageWidget> {
       )
     );
   }
+
+  Route _createRoute() {
+  return PageRouteBuilder(
+    pageBuilder: (context, animation, secondaryAnimation) => RocketListPage(),
+    transitionsBuilder: (context, animation, secondaryAnimation, child) {
+      var begin = Offset(0.0, 1.0);
+      var end = Offset.zero;
+      var curve = Curves.ease;
+
+      var tween = Tween(begin: begin, end: end).chain(CurveTween(curve: curve));
+
+      return SlideTransition(
+        position: animation.drive(tween),
+        child: child,
+      );
+    },
+  );
+}
+
 }
