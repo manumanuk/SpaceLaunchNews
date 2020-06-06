@@ -37,7 +37,7 @@ class _HomePageState extends State<HomePage> {
                   decoration: BoxDecoration(
                     image: DecorationImage(
                       fit: BoxFit.fitWidth,
-                      image: AssetImage('assets/rocket.JPG'),
+                      image: AssetImage('assets/images/rocket.JPG'),
                     ),
                   ),
                 ),
