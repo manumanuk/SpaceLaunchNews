@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'dart:async';
-import 'LaunchRequestAPI.dart';
 import 'dart:ui';
 
 import 'rocketlist.dart';
@@ -52,17 +51,11 @@ class _DetailsPageState extends State<DetailsPage> {
       Duration difference = launchTime.difference(DateTime.now());
       _countdown = difference;
     }
-    //print("It worked");
-    //print(_countdown);
-    /*final oneSec = Duration(seconds: 1);
-    _timer = Timer.periodic(Duration(seconds: 1), (timer) {
-      setState() {
-        //print(_countdown.compareTo(oneSec));
-      }
-    });*/
   }
 
-   
+  Container tableCell(String info) {
+      return Container(color: Colors.black, child: Padding(padding: EdgeInsets.all(10), child: Text(info, style: TextStyle(color: Colors.white, fontSize: 20, fontFamily: 'Raleway', fontWeight: FontWeight.w300))));
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -78,6 +71,7 @@ class _DetailsPageState extends State<DetailsPage> {
               decoration: new BoxDecoration(color: Colors.black87.withOpacity(0.3)),
             ),
           ),
+          ListView(children: <Widget>[
           Column(children: <Widget>[
             AppBar(
               title: Text(rocketData.data['name'], style: TextStyle(fontFamily: 'Raleway')),
@@ -90,7 +84,6 @@ class _DetailsPageState extends State<DetailsPage> {
               Padding(padding: EdgeInsets.only(top: 5)),
               Align(alignment: Alignment.centerLeft, child: Text(("Pad: " + rocketData.data["pad"]["name"]), style: TextStyle(color: Colors.white, fontFamily: 'Raleway', fontSize: 20, fontWeight: FontWeight.w500))),
               Align(alignment: Alignment.centerLeft, child: Text((rocketData.data["pad"]["location"]["name"]), style: TextStyle(color: Colors.white, fontFamily: 'Raleway', fontSize: 15, fontWeight: FontWeight.w500))),
-              //Align(alignment: Alignment.centerLeft, child: Text((launchInfo["pad"]["location"]["state"]), style: TextStyle(color: Colors.white, fontFamily: 'Raleway', fontSize: 15, fontWeight: FontWeight.w500))),
               Align(alignment: Alignment.centerLeft, child: Text((rocketData.data["pad"]["location"]["country"]), style: TextStyle(color: Colors.white, fontFamily: 'Raleway', fontSize: 15))),
               Padding(padding: EdgeInsets.only(top: 7)),
               Align(alignment: Alignment.center, child: Text((rocketData.data["launch_description"]), style: TextStyle(color: Colors.white, fontFamily: 'Raleway', fontSize: 12))),
@@ -111,20 +104,51 @@ class _DetailsPageState extends State<DetailsPage> {
                       )
                       ),
                     onPressed: () {
-                      initiateCount();
+                      //HERE IS THE BUTTON
                     },
                   ),
                 ),
               ),
               Padding(padding: EdgeInsets.only(top: 25)),
               Text("Vehicle Specs", style: TextStyle(color: Colors.white, fontFamily: 'Raleway', fontSize: 30, fontWeight: FontWeight.w300)),
-                //Text("Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean orci lacus, congue lacinia molestie eget, consectetur non purus. Integer eu justo pulvinar, iaculis libero vitae, sollicitudin lorem. Vivamus iaculis bibendum ullamcorper. Donec faucibus ultricies ipsum vel malesuada. Nam aliquet lacinia tincidunt. Curabitur neque orci, iaculis quis tellus maximus, rhoncus gravida velit. Lorem ipsum dolor sit amet, consectetur adipiscing elit. In ullamcorper, tortor quis vehicula volutpat, purus ligula aliquet neque, ut lobortis mi velit et lectus. Etiam venenatis massa a semper malesuada. Maecenas hendrerit ac dui vitae finibus. Ut et eleifend dolor. Pellentesque et pretium lacus, sed aliquet enim. Suspendisse tincidunt ipsum ac augue hendrerit malesuada.")
-                //Text(DateTime.now().toString()),
-                //Text(snapshot.data.toString()),
-                //Text(launchInfo.toString()),
-                
+              Padding(padding: EdgeInsets.only(top:10),),
+              Table(border: TableBorder.all(color: Colors.yellow[200], width: 0.3), children: <TableRow>[
+                TableRow(children: <Widget>[
+                  tableCell("Height"),
+                  tableCell(rocketData.height.toString() + " m")
+                ]),
+                TableRow(children: <Widget>[
+                  tableCell("Diameter"),
+                  tableCell(rocketData.diameter.toString() + " m")
+                ]),
+                TableRow(children: <Widget>[
+                  tableCell("Dry mass"),
+                  tableCell(rocketData.massKg.toString() + " kg")
+                ]),
+                TableRow(children: <Widget>[
+                  tableCell("Payload to LEO"),
+                  tableCell(rocketData.payloadKg.toString() + " kg")
+                ]),
+                TableRow(children: <Widget>[
+                  tableCell("Reusablity"),
+                  tableCell(rocketData.reusability)
+                ]),
+                TableRow(children: <Widget>[
+                  tableCell("First stage thrust"),
+                  tableCell(rocketData.seaThrust.toString() + " kN")
+                ]),
+                TableRow(children: <Widget>[
+                  tableCell("Vaccuum thrust"),
+                  tableCell(rocketData.vaccuumThrust.toString() + " kN")
+                ]),
+                TableRow(children: <Widget>[
+                  tableCell("Launch Cost"),
+                  tableCell("\$" + rocketData.cost.toString() + " million")
+                ]),
+              ],),
+              Container(padding: EdgeInsets.all(50),)
               ],)),
-            ]),
+            ]),],),
             displayCountdown(media),
           ],
         )
@@ -136,13 +160,16 @@ class _DetailsPageState extends State<DetailsPage> {
       return Container(
           margin: EdgeInsets.fromLTRB(15, media.height-10-75, 15, 15),
           child: Card(
-            color: Colors.white,
+            color: Colors.indigo,
             child: Padding(padding: EdgeInsets.all(15), child: Center(
               child: Text(
                 'T-' + '$_countdown'.substring(0, _countdown.toString().length-7),
                 style: TextStyle(
-                  fontSize: 20,
-                  fontWeight: FontWeight.w500,
+                  fontSize: 28,
+                  fontWeight: FontWeight.w300,
+                  letterSpacing: 16,
+                  backgroundColor: Colors.indigo,
+                  color: Colors.white,
                 )
               )
             ))

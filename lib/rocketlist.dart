@@ -16,19 +16,25 @@ class RocketInfo {
   double height;
   double diameter;
   double massKg;
+  double payloadKg;
+  String reusability;
+  double seaThrust;
+  double vaccuumThrust;
+  double cost;
 
-  RocketInfo(this.title, this.description, this.thumbnail, {this.height, this.diameter, this.massKg});
+
+  RocketInfo(this.title, this.description, this.thumbnail, {this.height, this.diameter, this.massKg, this.payloadKg, this.reusability, this.seaThrust, this.vaccuumThrust, this.cost});
 }
 class RocketListPage extends StatelessWidget{
     Future<List> futureLaunch; 
   Size deviceSize;
 
   List<RocketInfo> rocketList = [
-    RocketInfo("\"Don't Stop Me Now\" (ELaNa 32)",'PLACEHOLDER',Image.asset('assets/dontstopmenow.png'),height:17,diameter: 1.2,massKg: 225),
-    RocketInfo('Starlink-9','PLACEHOLDER',Image.asset('assets/starlink_patch-min.png'),height: 70.0,massKg: 25600,diameter: 5.7),
-    RocketInfo("SSMS (POC)",'PLACEHOLDER',Image.asset('assets/arianespace-min2.png'),height:30,diameter:3.0,massKg:137000),
-    RocketInfo("Starlink-10",'PLACEHOLDER',Image.asset('assets/starlink_patch-min.png'),height: 70.0,massKg: 25600,diameter: 5.7),
-    RocketInfo("GPS III SV03 (Columbus)",'PLACEHOLDER',Image.asset('assets/gps3.png'),height: 70.0,massKg: 25600,diameter: 5.7)
+    RocketInfo("\"Don't Stop Me Now\" (ELaNa 32)",'PLACEHOLDER',Image.asset('assets/dontstopmenow.png'),height:17,diameter: 1.2,massKg: 225,payloadKg: 225, reusability: 'First stage', seaThrust: 162, vaccuumThrust: 192, cost: 6,),
+    RocketInfo('Starlink-9','PLACEHOLDER',Image.asset('assets/starlink_patch-min.png'),height: 70.0,massKg: 25600,diameter: 5.7, payloadKg: 22800, reusability: 'First stage, fairings', seaThrust: 845, vaccuumThrust: 981, cost: 62,),
+    RocketInfo("SSMS (POC)",'PLACEHOLDER',Image.asset('assets/arianespace-min2.png'),height:30,diameter:3.0,massKg:137000, payloadKg: 1500, reusability: 'None', seaThrust: 2261, vaccuumThrust: 260, cost: 37,),
+    RocketInfo("Starlink-10",'PLACEHOLDER',Image.asset('assets/starlink_patch-min.png'),height: 70.0,massKg: 25600,diameter: 5.7, payloadKg: 22800, reusability: 'First stage, fairings', seaThrust: 845, vaccuumThrust: 981, cost: 62,),
+    RocketInfo("GPS III SV03 (Columbus)",'PLACEHOLDER',Image.asset('assets/gps3.png'),height: 70.0,massKg: 25600,diameter: 5.7, payloadKg: 22800, reusability: 'First stage, fairings', seaThrust: 845, vaccuumThrust: 981, cost: 62,),
 
   ];
   
