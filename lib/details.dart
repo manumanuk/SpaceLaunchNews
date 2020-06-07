@@ -169,7 +169,7 @@ class _DetailsPageState extends State<DetailsPage> {
 
   Route routeToAR() {
   return PageRouteBuilder(
-    pageBuilder: (context, animation, secondaryAnimation) =>ARView(),
+    pageBuilder: (context, animation, secondaryAnimation) =>ARView(vehicle: rocketData.data["vehicle"]["slug"]),
     transitionsBuilder: (context, animation, secondaryAnimation, child) {
       var begin = Offset(0.0, 1.0);
       var end = Offset.zero;
