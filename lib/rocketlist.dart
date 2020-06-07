@@ -12,19 +12,23 @@ class RocketInfo {
   dynamic data = [];
   String vehicleName;
   String providerName;
+  // all in metric because I'm not an animal.
+  double height;
+  double diameter;
+  double massKg;
 
-  RocketInfo(this.title, this.description, this.thumbnail);
+  RocketInfo(this.title, this.description, this.thumbnail, {this.height, this.diameter, this.massKg});
 }
 class RocketListPage extends StatelessWidget{
     Future<List> futureLaunch; 
   Size deviceSize;
 
   List<RocketInfo> rocketList = [
-    RocketInfo("\"Don't Stop Me Now\" (ELaNa 32)",'PLACEHOLDER',Image.asset('assets/dontstopmenow.png')),
-    RocketInfo('Starlink-9','PLACEHOLDER',Image.asset('assets/starlink_patch-min.png')),
-    RocketInfo("SSMS (POC)",'PLACEHOLDER',Image.asset('assets/arianespace-min2.png')),
-    RocketInfo("Starlink-10",'PLACEHOLDER',Image.asset('assets/starlink_patch-min.png')),
-    RocketInfo("GPS III SV03 (Columbus)",'PLACEHOLDER',Image.asset('assets/gps3.png'))
+    RocketInfo("\"Don't Stop Me Now\" (ELaNa 32)",'PLACEHOLDER',Image.asset('assets/dontstopmenow.png'),height:17,diameter: 1.2,massKg: 225),
+    RocketInfo('Starlink-9','PLACEHOLDER',Image.asset('assets/starlink_patch-min.png'),height: 70.0,massKg: 25600,diameter: 5.7),
+    RocketInfo("SSMS (POC)",'PLACEHOLDER',Image.asset('assets/arianespace-min2.png'),height:30,diameter:3.0,massKg:137000),
+    RocketInfo("Starlink-10",'PLACEHOLDER',Image.asset('assets/starlink_patch-min.png'),height: 70.0,massKg: 25600,diameter: 5.7),
+    RocketInfo("GPS III SV03 (Columbus)",'PLACEHOLDER',Image.asset('assets/gps3.png'),height: 70.0,massKg: 25600,diameter: 5.7)
 
   ];
   
