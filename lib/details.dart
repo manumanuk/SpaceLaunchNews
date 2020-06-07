@@ -27,7 +27,9 @@ class _DetailsPageState extends State<DetailsPage> {
   @override
   void initState() {
     super.initState();
-    getCountdown();
+    if(this.rocketData.data!=null && this.rocketData.data["win_open"]!= null) {
+      initiateCount();
+    }
   }
 
   Duration get updatedCount {
@@ -36,16 +38,20 @@ class _DetailsPageState extends State<DetailsPage> {
   }
   void initiateCount() {
     _timer = Timer.periodic(Duration(seconds: 1), (timer) {
-      setState(() {
-        getCountdown();
-      });
+      if(mounted){
+        setState(() {
+          getCountdown();
+        });
+      }
     });
   }
   void getCountdown() {
-    String launchDate = rocketData.data["win_open"];
-    DateTime launchTime = new DateTime(int.parse(launchDate.substring(0, 4)), int.parse(launchDate.substring(5, 7)), int.parse(launchDate.substring(8, 10)), int.parse(launchDate.substring(11, 13)), int.parse(launchDate.substring(14, 16)) + 0, 0);
-    Duration difference = launchTime.difference(DateTime.now());
-    _countdown = difference;
+    if(rocketData.data != null) {
+      String launchDate = rocketData.data["win_open"];
+      DateTime launchTime = new DateTime(int.parse(launchDate.substring(0, 4)), int.parse(launchDate.substring(5, 7)), int.parse(launchDate.substring(8, 10)), int.parse(launchDate.substring(11, 13)), int.parse(launchDate.substring(14, 16)) + 0, 0);
+      Duration difference = launchTime.difference(DateTime.now());
+      _countdown = difference;
+    }
     //print("It worked");
     //print(_countdown);
     /*final oneSec = Duration(seconds: 1);
@@ -133,7 +139,7 @@ class _DetailsPageState extends State<DetailsPage> {
             color: Colors.white,
             child: Padding(padding: EdgeInsets.all(15), child: Center(
               child: Text(
-                'T-' + '$_countdown'.substring(0, _countdown.toString().length-6),
+                'T-' + '$_countdown'.substring(0, _countdown.toString().length-7),
                 style: TextStyle(
                   fontSize: 20,
                   fontWeight: FontWeight.w500,
@@ -143,7 +149,19 @@ class _DetailsPageState extends State<DetailsPage> {
           ),
         );
     } else {
-      return Container();
+      return Container(margin: EdgeInsets.fromLTRB(15, media.height-10-75, 15, 15),
+          child: Card(
+            color: Colors.white,
+            child: Padding(padding: EdgeInsets.all(15), child: Center(
+              child: Text("Launch date TBD. No countdown available.", style: TextStyle(
+                  fontSize: media.width*0.04,
+                  fontFamily: 'Raleway',
+                  fontWeight: FontWeight.w500,
+                )),
+            ),
+            ),
+          ),
+      );
     }
   }
 }
