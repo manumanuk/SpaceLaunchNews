@@ -130,7 +130,7 @@ Widget appBarColumn(BuildContext context) => SafeArea(
 
                   //           })
                   //           );
-                  // }
+                  }
                   );
                   } else if (snapshot.hasError) {
                     return Text("${snapshot.error}");
