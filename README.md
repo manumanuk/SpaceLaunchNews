@@ -1,6 +1,9 @@
 # SpaceLaunchNews
 
-A new Flutter project.
+Our Team:
+https://github.com/keyonjerome
+https://github.com/manumanuk
+https://github.com/kiransuren
 
 ## Getting Started
 
