@@ -22,20 +22,18 @@ class RocketInfo {
   double cost;
 
 
-  RocketInfo(this.title, this.description, this.thumbnail, {this.height, this.diameter, this.massKg, this.payloadKg, this.reusability, this.seaThrust, this.vaccuumThrust, this.cost});
+  RocketInfo({this.title, this.description, this.thumbnail, this.height, this.diameter, this.massKg, this.payloadKg, this.reusability, this.seaThrust, this.vaccuumThrust, this.cost});
 }
 class RocketListPage extends StatelessWidget{
     Future<List> futureLaunch; 
-  Size deviceSize;
-
-  List<RocketInfo> rocketList = [
-    RocketInfo("\"Don't Stop Me Now\" (ELaNa 32)",'PLACEHOLDER',Image.asset('assets/dontstopmenow.png'),height:17,diameter: 1.2,massKg: 225,payloadKg: 225, reusability: 'First stage', seaThrust: 162, vaccuumThrust: 192, cost: 6,),
-    RocketInfo('Starlink-9','PLACEHOLDER',Image.asset('assets/starlink_patch-min.png'),height: 70.0,massKg: 25600,diameter: 5.7, payloadKg: 22800, reusability: 'First stage, fairings', seaThrust: 845, vaccuumThrust: 981, cost: 62,),
-    RocketInfo("SSMS (POC)",'PLACEHOLDER',Image.asset('assets/arianespace-min2.png'),height:30,diameter:3.0,massKg:137000, payloadKg: 1500, reusability: 'None', seaThrust: 2261, vaccuumThrust: 260, cost: 37,),
-    RocketInfo("Starlink-10",'PLACEHOLDER',Image.asset('assets/starlink_patch-min.png'),height: 70.0,massKg: 25600,diameter: 5.7, payloadKg: 22800, reusability: 'First stage, fairings', seaThrust: 845, vaccuumThrust: 981, cost: 62,),
-    RocketInfo("GPS III SV03 (Columbus)",'PLACEHOLDER',Image.asset('assets/gps3.png'),height: 70.0,massKg: 25600,diameter: 5.7, payloadKg: 22800, reusability: 'First stage, fairings', seaThrust: 845, vaccuumThrust: 981, cost: 62,),
-
-  ];
+    Size deviceSize;
+    var imageKeys = {"electron": "dontstopmenow.png", "falcon-9":"starlink_patch-min.png", "vega": "arianespace-min2.png", "default":"default.png"};
+    var specsKeys = {"electron": {"height":17.0,"diameter": 1.2,"massKg": 225.0,"payloadKg": 225.0, "reusability": 'First stage', "seaThrust": 162.0, "vaccuumThrust": 192.0, "cost": 6.0}, 
+                    "falcon-9":{"height": 70.0,"diameter": 5.7, "massKg": 25600.0, "payloadKg": 22800.0, "reusability": 'First stage, fairings', "seaThrust": 845.0, "vaccuumThrust": 981.0, "cost": 62.0}, 
+                    "vega": {"height":30.0,"diameter":3.0,"massKg":137000.0, "payloadKg": 1500.0, "reusability": 'None', "seaThrust": 2261.0, "vaccuumThrust": 260.0, "cost": 37.0}, 
+                    "default":{"height":0.0,"diameter":0.0,"massKg":0.0, "payloadKg": 0.0, "reusability": 'No Data', "seaThrust": 0.0, "vaccuumThrust": 0.0, "cost": 0.0}
+                    };
+    List<RocketInfo> rocketList = new List();
   
 
 // Widget rocketList(BuildContext context) =>  {
@@ -116,12 +114,38 @@ Widget appBarColumn(BuildContext context) => SafeArea(
                     return ListView.builder(
           itemCount: snapshot.data.length,
           itemBuilder: (context, index) {
-                    
-                    for(var rocket in rocketList) {
-                      if(snapshot.data[index]['name'] == rocket.title) {
+                    for( var i = 0 ; i < snapshot.data.length; i++) {
+                        RocketInfo rocket = new RocketInfo();
                         rocket.data = snapshot.data[index];
                         rocket.providerName = snapshot.data[index]['provider']['name'];
                         rocket.vehicleName =  snapshot.data[index]['vehicle']['name'];
+                        rocket.title = snapshot.data[index]['name'];
+                        rocket.description = snapshot.data[index]['launch_description'];
+                        String tSlug = snapshot.data[index]['vehicle']['slug'];
+                        if(imageKeys.containsKey(tSlug)){
+                          String r = imageKeys[tSlug];
+                          rocket.thumbnail = Image.asset('assets/$r');
+                          rocket.height = specsKeys[tSlug]['height'];
+                          rocket.diameter = specsKeys[tSlug]['diameter'];
+                          rocket.massKg = specsKeys[tSlug]['massKg'];
+                          rocket.payloadKg = specsKeys[tSlug]['payloadKg'];
+                          rocket.reusability = specsKeys[tSlug]['reusability'];
+                          rocket.seaThrust = specsKeys[tSlug]['seaThrust'];
+                          rocket.vaccuumThrust = specsKeys[tSlug]['vaccuumThrust'];
+                          rocket.cost = specsKeys[tSlug]['cost'];
+                        }else{
+                          String r = imageKeys['default'];
+                          rocket.thumbnail = Image.asset('assets/$r');
+                          rocket.height = specsKeys[tSlug]['height'];
+                          rocket.diameter = specsKeys[tSlug]['diameter'];
+                          rocket.massKg = specsKeys[tSlug]['massKg'];
+                          rocket.payloadKg = specsKeys[tSlug]['payloadKg'];
+                          rocket.reusability = specsKeys[tSlug]['reusability'];
+                          rocket.seaThrust = specsKeys[tSlug]['seaThrust'];
+                          rocket.vaccuumThrust = specsKeys[tSlug]['vaccuumThrust'];
+                          rocket.cost = specsKeys[tSlug]['cost'];
+                          }
+                        rocketList.add(rocket);
 
                         return     Card(margin: EdgeInsets.symmetric(horizontal:20,vertical:10),
                           child: ListTile(contentPadding: EdgeInsets.symmetric(horizontal:16,vertical:8),
@@ -134,18 +158,6 @@ Widget appBarColumn(BuildContext context) => SafeArea(
                             );
                       }
                     }
-                  // ignore the below card, this was the backup in case a rocket from the API is NOT matched to our local list, but idc
-                  // it won't happen. hopefully not
-                  //   return     Card(margin: EdgeInsets.symmetric(horizontal:4,vertical:5),
-                  //         child: ListTile(contentPadding: EdgeInsets.symmetric(horizontal:0,vertical:5),
-                  //           leading: FlutterLogo(size: 56.0),
-                  //           title: Text(snapshot.data[index]['name']),
-                  //           subtitle: Text(snapshot.data[index]['id'].toString()),
-                  //           onTap: () {
-
-                  //           })
-                  //           );
-                  }
                   );
                   } else if (snapshot.hasError) {
                     return Text("${snapshot.error}");
