@@ -2,15 +2,11 @@
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
-<<<<<<< HEAD
 include ':app', ':unity-classes', ':arcore_client', ':unityandroidpermissions', ':UnityARCore', ':ARPresto'
 
 include ":UnityExport"
 project(":UnityExport").projectDir = file("./UnityExport")
 
-=======
-include ':app'
->>>>>>> cbf6d7319f7743ea71e711c7e7e1ed0ebd3c23a1
 
 def localPropertiesFile = new File(rootProject.projectDir, "local.properties")
 def properties = new Properties()

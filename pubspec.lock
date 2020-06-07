@@ -74,7 +74,6 @@ packages:
     description: flutter
     source: sdk
     version: "0.0.0"
-<<<<<<< HEAD
   flutter_unity_widget:
     dependency: "direct main"
     description:
@@ -82,8 +81,6 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "0.1.6+8"
-=======
->>>>>>> cbf6d7319f7743ea71e711c7e7e1ed0ebd3c23a1
   http:
     dependency: "direct main"
     description:
