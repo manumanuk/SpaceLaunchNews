@@ -1,20 +1,23 @@
 
 import 'package:SpaceLaunchNews/LaunchRequestAPI.dart';
+import 'package:SpaceLaunchNews/details.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
 class RocketInfo {
-  final String title;
-  final String description;
-  final Image thumbnail;
+  String title;
+  String description;
+  Image thumbnail;
   dynamic data = [];
+  String vehicleName;
+  String providerName;
 
   RocketInfo(this.title, this.description, this.thumbnail);
 }
 class RocketListPage extends StatelessWidget{
     Future<List> futureLaunch; 
-  Size deviceSize;List<bool> numberTruthList = [true, true, true, true , true, true];
+  Size deviceSize;
 
   List<RocketInfo> rocketList = [
     RocketInfo("\"Don't Stop Me Now\" (ELaNa 32)",'PLACEHOLDER',Image.asset('assets/dontstopmenow.png')),
@@ -78,7 +81,7 @@ Widget appBarColumn(BuildContext context) => SafeArea(
         //   ),
       Scaffold(backgroundColor: Color.fromRGBO(0,7, 45, 1.0),
         appBar: AppBar( backgroundColor: Color.fromRGBO(0,7, 45, 1.0),
-          title: Text('Rocket List',textAlign: TextAlign.center,style:TextStyle(fontFamily: 'Roboto')),
+          title: Text('Rocket Launches List',textAlign: TextAlign.center,style:TextStyle(fontFamily: 'Roboto')),
         ),
     //     body: ListView.builder(
     //       itemCount: 5,
@@ -108,13 +111,16 @@ Widget appBarColumn(BuildContext context) => SafeArea(
                     for(var rocket in rocketList) {
                       if(snapshot.data[index]['name'] == rocket.title) {
                         rocket.data = snapshot.data[index];
+                        rocket.providerName = snapshot.data[index]['provider']['name'];
+                        rocket.vehicleName =  snapshot.data[index]['vehicle']['name'];
+
                         return     Card(margin: EdgeInsets.symmetric(horizontal:20,vertical:10),
                           child: ListTile(contentPadding: EdgeInsets.symmetric(horizontal:16,vertical:8),
                             leading: rocket.thumbnail,
                             title: Text(snapshot.data[index]['name']),
-                            subtitle: Text(rocket.description),
+                            subtitle: Text( snapshot.data[index]['provider']['name']+' — '+snapshot.data[index]['vehicle']['name']),
                             onTap: () {
-
+                                Navigator.push(context,routeToDetails());
                             })
                             );
                       }
@@ -144,5 +150,21 @@ Widget appBarColumn(BuildContext context) => SafeArea(
 
     
   }
-  
+  Route routeToDetails() {
+  return PageRouteBuilder(
+    pageBuilder: (context, animation, secondaryAnimation) =>DetailsPage(),
+    transitionsBuilder: (context, animation, secondaryAnimation, child) {
+      var begin = Offset(0.0, 1.0);
+      var end = Offset.zero;
+      var curve = Curves.ease;
+
+      var tween = Tween(begin: begin, end: end).chain(CurveTween(curve: curve));
+
+      return SlideTransition(
+        position: animation.drive(tween),
+        child: child,
+      );
+    },
+  );
+}
   }
