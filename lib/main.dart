@@ -1,7 +1,7 @@
 import 'package:SpaceLaunchNews/home.dart';
 import 'package:SpaceLaunchNews/home_page.dart';
-import 'package:SpaceLaunchNews/details.dart';
 import 'package:flutter/material.dart';
+import 'package:SpaceLaunchNews/details.dart';
 
 void main() {
   runApp(MyApp());
@@ -29,7 +29,6 @@ class MyApp extends StatelessWidget {
         // closer together (more dense) than on mobile platforms.
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
-      //home: HomePage(),
       home: DetailsPage(),
     );
   }
