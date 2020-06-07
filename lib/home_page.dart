@@ -27,7 +27,7 @@ class _HomePageState extends State<HomePageWidget> {
             BackdropFilter(
               filter: new ImageFilter.blur(sigmaX: 3.0, sigmaY: 3.0),
               child: new Container(
-                decoration: new BoxDecoration(color: Colors.black87.withOpacity(0.4)),
+                decoration: new BoxDecoration(color: Colors.black87.withOpacity(0.1)),
               ),
             ),
             Column(children: <Widget>[
@@ -35,11 +35,11 @@ class _HomePageState extends State<HomePageWidget> {
                 color: Colors.transparent,
                 shadowColor: Colors.black,
                 //margin: EdgeInsets.only(left: context.size.height/100*7, right: context.size.height/100*7, top: context.size.height/100*25, bottom: context.size.height/100*25),
-                margin: EdgeInsets.only(left: media.width/100*5, right: media.width/100*5, top: media.height/100*33, bottom: media.height/100*9), 
+                margin: EdgeInsets.only(left: media.width/100*12, right: media.width/100*12, top: media.height/100*35, bottom: media.height/100*9), 
                 child: Padding(
-                  padding: EdgeInsets.all(10),
+                  padding: EdgeInsets.all(13),
                   child: Center(child: Text(
-                    'Space Launch News',
+                    'LiveLaunch',
                     textAlign: TextAlign.center,
                     style: TextStyle(
                       color: Colors.white,

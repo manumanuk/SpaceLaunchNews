@@ -20,6 +20,7 @@ class _DetailsPageState extends State<DetailsPage> {
   ScaffoldState scaffold;
   Duration _countdown;
   Timer _timer;
+  bool dataState = false;
   
   RocketInfo rocketData;
   _DetailsPageState(this.rocketData);
@@ -29,6 +30,7 @@ class _DetailsPageState extends State<DetailsPage> {
     super.initState();
     if(this.rocketData.data!=null && this.rocketData.data["win_open"]!= null) {
       initiateCount();
+      dataState = true;
     }
   }
 
@@ -46,7 +48,7 @@ class _DetailsPageState extends State<DetailsPage> {
     });
   }
   void getCountdown() {
-    if(rocketData.data != null) {
+    if(rocketData.data != null && rocketData.data["win_open"] != null) {
       String launchDate = rocketData.data["win_open"];
       DateTime launchTime = new DateTime(int.parse(launchDate.substring(0, 4)), int.parse(launchDate.substring(5, 7)), int.parse(launchDate.substring(8, 10)), int.parse(launchDate.substring(11, 13)), int.parse(launchDate.substring(14, 16)) + 0, 0);
       Duration difference = launchTime.difference(DateTime.now());
@@ -157,7 +159,8 @@ class _DetailsPageState extends State<DetailsPage> {
   }
 
   Widget displayCountdown(media) {
-    if (rocketData.data["win_open"]!=null) {
+    getCountdown();
+    if (rocketData.data["win_open"]!=null && dataState) {
       return Container(
           margin: EdgeInsets.fromLTRB(15, media.height-10-75, 15, 15),
           child: Card(
