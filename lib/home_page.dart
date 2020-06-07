@@ -27,7 +27,7 @@ class _HomePageState extends State<HomePageWidget> {
             BackdropFilter(
               filter: new ImageFilter.blur(sigmaX: 3.0, sigmaY: 3.0),
               child: new Container(
-                decoration: new BoxDecoration(color: Colors.black87.withOpacity(0.4)),
+                decoration: new BoxDecoration(color: Colors.black87.withOpacity(0.1)),
               ),
             ),
             Column(children: <Widget>[
