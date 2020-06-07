@@ -8,6 +8,7 @@ class RocketInfo {
   final String title;
   final String description;
   final Image thumbnail;
+  List<dynamic> data;
 
   RocketInfo(this.title, this.description, this.thumbnail);
 }
@@ -16,7 +17,12 @@ class RocketListPage extends StatelessWidget{
   Size deviceSize;List<bool> numberTruthList = [true, true, true, true , true, true];
 
   List<RocketInfo> rocketList = [
-    RocketInfo('Falcon 9 ','dasd',Image.asset('asasd'))
+    RocketInfo("\"Don't Stop Me Now\" (ELaNa 32)",'PLACEHOLDER',Image.asset('assets/dontstopmenow.png')),
+    RocketInfo('Starlink-9','PLACEHOLDER',Image.asset('assets/starlink_patch-min.png')),
+    RocketInfo("SSMS (POC)",'PLACEHOLDER',Image.asset('assets/arianespace-min2.png')),
+    RocketInfo("Starlink-10",'PLACEHOLDER',Image.asset('assets/starlink_patch-min.png')),
+    RocketInfo("GPS III SV03 (Columbus)",'PLACEHOLDER',Image.asset('assets/gps3.png'))
+
   ];
 
 // Widget rocketList(BuildContext context) =>  {
@@ -97,6 +103,21 @@ Widget appBarColumn(BuildContext context) => SafeArea(
                     return ListView.builder(
           itemCount: snapshot.data.length,
           itemBuilder: (context, index) {
+                    
+                    for(var rocket in rocketList) {
+                      if(snapshot.data[index]['name'] == rocket.title) {
+                        return     Card(margin: EdgeInsets.all(4),
+                          child: ListTile(
+                            leading: rocket.thumbnail,
+                            title: Text(snapshot.data[index]['name']),
+                            subtitle: Text(rocket.description),
+                            onTap: () {
+
+                            })
+                            );
+                      }
+                    }
+
                     return     Card(margin: EdgeInsets.all(4),
                           child: ListTile(
                             leading: FlutterLogo(size: 56.0),
