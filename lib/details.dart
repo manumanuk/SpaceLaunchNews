@@ -17,7 +17,6 @@ class DetailsPage extends StatefulWidget {
 
 
 class _DetailsPageState extends State<DetailsPage> {
-  Future<List> futureLaunch;
   ScaffoldState scaffold;
   Duration _countdown;
   Timer _timer;
@@ -28,22 +27,33 @@ class _DetailsPageState extends State<DetailsPage> {
   @override
   void initState() {
     super.initState();
-    futureLaunch = fetchLaunch();
-    
     getCountdown();
   }
 
+  Duration get updatedCount {
+    getCountdown();
+    return _countdown;
+  }
+  void initiateCount() {
+    _timer = Timer.periodic(Duration(seconds: 1), (timer) {
+      setState(() {
+        getCountdown();
+      });
+    });
+  }
   void getCountdown() {
     String launchDate = rocketData.data["win_open"];
-    print("Working");
     DateTime launchTime = new DateTime(int.parse(launchDate.substring(0, 4)), int.parse(launchDate.substring(5, 7)), int.parse(launchDate.substring(8, 10)), int.parse(launchDate.substring(11, 13)), int.parse(launchDate.substring(14, 16)) + 0, 0);
     Duration difference = launchTime.difference(DateTime.now());
-    print("It worked");
+    _countdown = difference;
+    //print("It worked");
+    //print(_countdown);
+    /*final oneSec = Duration(seconds: 1);
     _timer = Timer.periodic(Duration(seconds: 1), (timer) {
       setState() {
-        
+        //print(_countdown.compareTo(oneSec));
       }
-    });
+    });*/
   }
 
    
@@ -75,8 +85,9 @@ class _DetailsPageState extends State<DetailsPage> {
               Align(alignment: Alignment.centerLeft, child: Text(("Pad: " + rocketData.data["pad"]["name"]), style: TextStyle(color: Colors.white, fontFamily: 'Raleway', fontSize: 20, fontWeight: FontWeight.w500))),
               Align(alignment: Alignment.centerLeft, child: Text((rocketData.data["pad"]["location"]["name"]), style: TextStyle(color: Colors.white, fontFamily: 'Raleway', fontSize: 15, fontWeight: FontWeight.w500))),
               //Align(alignment: Alignment.centerLeft, child: Text((launchInfo["pad"]["location"]["state"]), style: TextStyle(color: Colors.white, fontFamily: 'Raleway', fontSize: 15, fontWeight: FontWeight.w500))),
-              Align(alignment: Alignment.centerLeft, child: Text((rocketData.data["pad"]["location"]["country"]), style: TextStyle(color: Colors.white, fontFamily: 'Raleway', fontSize: 15, fontWeight: FontWeight.w500))),
-              Align(alignment: Alignment.center, child: Text((rocketData.data["launch_description"]), style: TextStyle(color: Colors.white, fontFamily: 'Raleway', fontSize: 12, fontWeight: FontWeight.w500))),
+              Align(alignment: Alignment.centerLeft, child: Text((rocketData.data["pad"]["location"]["country"]), style: TextStyle(color: Colors.white, fontFamily: 'Raleway', fontSize: 15))),
+              Padding(padding: EdgeInsets.only(top: 7)),
+              Align(alignment: Alignment.center, child: Text((rocketData.data["launch_description"]), style: TextStyle(color: Colors.white, fontFamily: 'Raleway', fontSize: 12))),
               Padding(padding: EdgeInsets.only(top: 10)),
               Container(
                 child: ButtonTheme(
@@ -94,8 +105,7 @@ class _DetailsPageState extends State<DetailsPage> {
                       )
                       ),
                     onPressed: () {
-                      print("pressed");
-                      print("vehicle:" + rocketData.data['vehicle']['name']);
+                      initiateCount();
                     },
                   ),
                 ),
@@ -123,7 +133,7 @@ class _DetailsPageState extends State<DetailsPage> {
             color: Colors.white,
             child: Padding(padding: EdgeInsets.all(15), child: Center(
               child: Text(
-                '$_countdown',
+                'T-' + '$_countdown'.substring(0, _countdown.toString().length-6),
                 style: TextStyle(
                   fontSize: 20,
                   fontWeight: FontWeight.w500,
