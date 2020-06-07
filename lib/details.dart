@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'dart:async';
+import 'package:SpaceLaunchNews/arview.dart';
 import 'dart:ui';
 
 import 'rocketlist.dart';
@@ -104,7 +105,7 @@ class _DetailsPageState extends State<DetailsPage> {
                       )
                       ),
                     onPressed: () {
-                      //HERE IS THE BUTTON
+                      Navigator.push(context,routeToAR());
                     },
                   ),
                 ),
@@ -191,4 +192,23 @@ class _DetailsPageState extends State<DetailsPage> {
       );
     }
   }
+
+
+  Route routeToAR() {
+  return PageRouteBuilder(
+    pageBuilder: (context, animation, secondaryAnimation) =>ARView(vehicle: rocketData.data["vehicle"]["slug"]),
+    transitionsBuilder: (context, animation, secondaryAnimation, child) {
+      var begin = Offset(0.0, 1.0);
+      var end = Offset.zero;
+      var curve = Curves.ease;
+
+      var tween = Tween(begin: begin, end: end).chain(CurveTween(curve: curve));
+
+      return SlideTransition(
+        position: animation.drive(tween),
+        child: child,
+      );
+    },
+  );
+}
 }

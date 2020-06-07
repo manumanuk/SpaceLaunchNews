@@ -2,7 +2,6 @@
 import 'package:SpaceLaunchNews/LaunchRequestAPI.dart';
 import 'package:SpaceLaunchNews/details.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
 class RocketInfo {
@@ -110,7 +109,7 @@ Widget appBarColumn(BuildContext context) => SafeArea(
     // );
     //       }  
     //     )
-    body:              new Center(child:FutureBuilder<List>(
+    body: new Center(child:FutureBuilder<List>(
                 future: futureLaunch,
                 builder: (context, snapshot) {
                   if (snapshot.hasData) {
