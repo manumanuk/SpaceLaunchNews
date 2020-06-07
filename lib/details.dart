@@ -3,12 +3,16 @@ import 'dart:async';
 import 'LaunchRequestAPI.dart';
 import 'dart:ui';
 
+import 'rocketlist.dart';
+
 
 class DetailsPage extends StatefulWidget {
-  DetailsPage({Key key, this.title}) : super(key: key);
+  DetailsPage({Key key, this.title,@required this.rocketData}) : super(key: key);
   final String title;
+  final RocketInfo rocketData;
   @override
-  _DetailsPageState createState() => _DetailsPageState();
+  _DetailsPageState createState() => new _DetailsPageState(rocketData);
+  
 }
 
 
@@ -18,10 +22,15 @@ class _DetailsPageState extends State<DetailsPage> {
   ScaffoldState scaffold;
   Duration _countdown;
   Timer _timer;
+  
+  RocketInfo rocketData;
+  _DetailsPageState(this.rocketData);
+
   @override
   void initState() {
     super.initState();
     futureLaunch = fetchLaunch();
+    
     getCountdown();
   }
 
@@ -96,6 +105,7 @@ class _DetailsPageState extends State<DetailsPage> {
                             ),
                           onPressed: () {
                             print("pressed");
+                            print("vehicle:" + rocketData.data['vehicle']['name']);
                           },
                         ),
                       ),

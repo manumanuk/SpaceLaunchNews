@@ -120,7 +120,7 @@ Widget appBarColumn(BuildContext context) => SafeArea(
                             title: Text(snapshot.data[index]['name']),
                             subtitle: Text( snapshot.data[index]['provider']['name']+' — '+snapshot.data[index]['vehicle']['name']),
                             onTap: () {
-                                Navigator.push(context,routeToDetails());
+                                Navigator.push(context,routeToDetails(index));
                             })
                             );
                       }
@@ -150,9 +150,9 @@ Widget appBarColumn(BuildContext context) => SafeArea(
 
     
   }
-  Route routeToDetails() {
+  Route routeToDetails(index) {
   return PageRouteBuilder(
-    pageBuilder: (context, animation, secondaryAnimation) =>DetailsPage(),
+    pageBuilder: (context, animation, secondaryAnimation) =>DetailsPage(title:rocketList[index].vehicleName, rocketData: rocketList[index]),
     transitionsBuilder: (context, animation, secondaryAnimation, child) {
       var begin = Offset(0.0, 1.0);
       var end = Offset.zero;
