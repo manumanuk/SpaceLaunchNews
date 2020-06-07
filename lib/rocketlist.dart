@@ -8,7 +8,7 @@ class RocketInfo {
   final String title;
   final String description;
   final Image thumbnail;
-  List<dynamic> data;
+  dynamic data = [];
 
   RocketInfo(this.title, this.description, this.thumbnail);
 }
@@ -24,6 +24,7 @@ class RocketListPage extends StatelessWidget{
     RocketInfo("GPS III SV03 (Columbus)",'PLACEHOLDER',Image.asset('assets/gps3.png'))
 
   ];
+  
 
 // Widget rocketList(BuildContext context) =>  {
   
@@ -96,7 +97,7 @@ Widget appBarColumn(BuildContext context) => SafeArea(
     // );
     //       }  
     //     )
-    body:              FutureBuilder<List>(
+    body:              new Center(child:FutureBuilder<List>(
                 future: futureLaunch,
                 builder: (context, snapshot) {
                   if (snapshot.hasData) {
@@ -107,8 +108,8 @@ Widget appBarColumn(BuildContext context) => SafeArea(
                     for(var rocket in rocketList) {
                       if(snapshot.data[index]['name'] == rocket.title) {
                         rocket.data = snapshot.data[index];
-                        return     Card(margin: EdgeInsets.all(4),
-                          child: ListTile(
+                        return     Card(margin: EdgeInsets.symmetric(horizontal:20,vertical:10),
+                          child: ListTile(contentPadding: EdgeInsets.symmetric(horizontal:16,vertical:8),
                             leading: rocket.thumbnail,
                             title: Text(snapshot.data[index]['name']),
                             subtitle: Text(rocket.description),
@@ -118,17 +119,18 @@ Widget appBarColumn(BuildContext context) => SafeArea(
                             );
                       }
                     }
+                  // ignore the below card, this was the backup in case a rocket from the API is NOT matched to our local list, but idc
+                  // it won't happen. hopefully not
+                  //   return     Card(margin: EdgeInsets.symmetric(horizontal:4,vertical:5),
+                  //         child: ListTile(contentPadding: EdgeInsets.symmetric(horizontal:0,vertical:5),
+                  //           leading: FlutterLogo(size: 56.0),
+                  //           title: Text(snapshot.data[index]['name']),
+                  //           subtitle: Text(snapshot.data[index]['id'].toString()),
+                  //           onTap: () {
 
-                    return     Card(margin: EdgeInsets.all(4),
-                          child: ListTile(
-                            leading: FlutterLogo(size: 56.0),
-                            title: Text(snapshot.data[index]['name']),
-                            subtitle: Text(snapshot.data[index]['id'].toString()),
-                            onTap: () {
-
-                            })
-                            );
-                  }
+                  //           })
+                  //           );
+                  // }
                   );
                   } else if (snapshot.hasError) {
                     return Text("${snapshot.error}");
@@ -137,7 +139,7 @@ Widget appBarColumn(BuildContext context) => SafeArea(
                   print(snapshot);
                   return Center(child:CircularProgressIndicator());
                 },
-              ),
+              ),)
       )]);
 
     
