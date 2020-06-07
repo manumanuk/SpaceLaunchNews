@@ -106,6 +106,7 @@ Widget appBarColumn(BuildContext context) => SafeArea(
                     
                     for(var rocket in rocketList) {
                       if(snapshot.data[index]['name'] == rocket.title) {
+                        rocket.data = snapshot.data[index];
                         return     Card(margin: EdgeInsets.all(4),
                           child: ListTile(
                             leading: rocket.thumbnail,
