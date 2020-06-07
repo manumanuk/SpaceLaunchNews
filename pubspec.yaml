@@ -21,6 +21,7 @@ environment:
   sdk: ">=2.7.0 <3.0.0"
 
 dependencies:
+  flutter_unity_widget: ^0.1.6+8
   flutter:
     sdk: flutter
   http: ^0.12.1
