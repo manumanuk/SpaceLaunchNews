@@ -84,7 +84,7 @@ public static class XcodePostBuild
 
 
     /// <summary>
-    /// Edit 'UnityFramework.h': add  'frameworkWarmup' 
+    /// Edit 'UnityFramework.h': add  'frameworkWarmup'
     /// </summary>
     private static void EditUnityFrameworkH(string path)
     {
@@ -177,7 +177,7 @@ public static class XcodePostBuild
 					};
 				}
 			}
-			
+
 			return new string[] { line };
 		});
 

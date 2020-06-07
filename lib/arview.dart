@@ -25,10 +25,11 @@ class _ARViewState extends State<ARView> {
 
     double _sliderValue = 1.0;
     String _projectKey = 'crimson-flower-2283';
-    String _entryID = '3c7b8874-45ff-4196-b894-19a7effa4037';
+    String _entryID = '6b973c24-23cf-4fca-894e-76f52e37500f';
 
     void onUnityCreated(controller) {
     this._unityWidgetController = controller;
+    setScale("0.1");
   }
 
     void setScale(String scale) {
@@ -38,7 +39,7 @@ class _ARViewState extends State<ARView> {
       'key': _projectKey,
       'entry': _entryID,
       'data': 'scale',
-      'value': scale
+      'value': scale,
     }).then((value) => print(value.body));
   }
 
@@ -55,6 +56,11 @@ class _ARViewState extends State<ARView> {
           },
           child: Container(
             color: Colors.yellow,
+            child:UnityWidget(
+                    onUnityViewCreated: onUnityCreated,
+                    isARScene: true,
+                  ),
+            /*
             child: Stack(children: 
             <Widget>[
               UnityWidget(
@@ -88,7 +94,7 @@ class _ARViewState extends State<ARView> {
                     ),
                   ),
                 ),
-              ],),
+              ],),*/
 
 
           ),
