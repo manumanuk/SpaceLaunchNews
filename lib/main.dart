@@ -1,5 +1,6 @@
 import 'package:SpaceLaunchNews/home.dart';
 import 'package:SpaceLaunchNews/home_page.dart';
+import 'package:SpaceLaunchNews/details.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -29,7 +30,7 @@ class MyApp extends StatelessWidget {
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
       //home: HomePage(),
-      home: HomePageWidget(),
+      home: DetailsPage(),
     );
   }
 }
