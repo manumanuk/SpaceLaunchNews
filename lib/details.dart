@@ -1,10 +1,7 @@
 import 'package:flutter/material.dart';
 import 'dart:async';
 import 'LaunchRequestAPI.dart';
-<<<<<<< HEAD
 import 'package:SpaceLaunchNews/arview.dart';
-=======
->>>>>>> cbf6d7319f7743ea71e711c7e7e1ed0ebd3c23a1
 import 'dart:ui';
 
 import 'rocketlist.dart';
@@ -115,10 +112,7 @@ class _DetailsPageState extends State<DetailsPage> {
                       )
                       ),
                     onPressed: () {
-<<<<<<< HEAD
                       Navigator.push(context,routeToAR());
-=======
->>>>>>> cbf6d7319f7743ea71e711c7e7e1ed0ebd3c23a1
                       initiateCount();
                     },
                   ),
@@ -172,7 +166,6 @@ class _DetailsPageState extends State<DetailsPage> {
       );
     }
   }
-<<<<<<< HEAD
 
 
   Route routeToAR() {
@@ -192,6 +185,4 @@ class _DetailsPageState extends State<DetailsPage> {
     },
   );
 }
-=======
->>>>>>> cbf6d7319f7743ea71e711c7e7e1ed0ebd3c23a1
 }
