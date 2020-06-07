@@ -1,7 +1,5 @@
 import 'dart:ui';
-
 import 'package:flutter/material.dart';
-import 'LaunchRequestAPI.dart';
 
 class HomePageWidget extends StatefulWidget {
   HomePageWidget({Key key, this.title}) : super(key: key);
@@ -12,13 +10,6 @@ class HomePageWidget extends StatefulWidget {
 
 
 class _HomePageState extends State<HomePageWidget> {
-  Future<List> futureLaunch;
-  @override
-  void initState() {
-    super.initState();
-    futureLaunch = fetchLaunch();
-  }
-
   @override
   Widget build(BuildContext context) {
     Size media = MediaQuery.of(context).size;
