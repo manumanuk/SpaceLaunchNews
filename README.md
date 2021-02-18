@@ -1,8 +1,10 @@
-# SpaceLaunchNews
+# LiveLaunch
 
-Devpost: https://devpost.com/software/livelaunch
+LiveLaunch is an Android app created to allow rocket enthusiasts to get all the data they need about upcoming launches from around the world, including a live countdown, launch vehicle specs, and a 3D AR render of the vehicle being used. Learn more about the project on [Devpost](https://devpost.com/software/livelaunch). The project was created with Flutter, Dart, Unity, EchoAR, and the RocketLive API.
 
-Our Team:
+![Screenshot](./readme_assets/livelaunch.png)
+
+## Our Team:
 
 https://github.com/keyonjerome
 
